@@ -1,9 +1,15 @@
 package com.blog.user.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.blog.common.entity.Audit;
+import com.blog.post.entity.Post;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,6 +37,9 @@ public class User extends Audit {
 	private String address;
 	
 	private String about;
+	
+	@OneToMany(mappedBy = "user",cascade =CascadeType.ALL,fetch=FetchType.LAZY)
+	private List<User> user;
 
 
 }

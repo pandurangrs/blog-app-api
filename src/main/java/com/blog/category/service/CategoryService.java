@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.blog.category.dto.CategoryDto;
 import com.blog.category.model.CategoryModel;
+import com.blog.category.model.CategoryResponse;
 
 public interface CategoryService {
 	
@@ -13,7 +14,7 @@ public interface CategoryService {
 	
 	CategoryModel getCategoryUsingUuid(String categoryUuid);
 	
-	List<CategoryModel> getCategoryList(int page);
+	CategoryResponse getCategoryList(Integer pageNumber,Integer pageSize);
 	
 	void deleteCategory(String categoryUuid);
 

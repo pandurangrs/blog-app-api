@@ -3,6 +3,7 @@ package com.blog.category.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ import com.blog.common.exception.ResourceNotFoundException;
 
 @Repository
 public class CategoryDaoImpl implements CategoryDao {
-	
+
 	@Autowired
 	private CategoryRepo categoryRepo;
 
@@ -23,14 +24,15 @@ public class CategoryDaoImpl implements CategoryDao {
 
 	@Override
 	public Category getCategoryUsingUuid(String categoryUuid) {
-		
-		return categoryRepo.findByUuid(categoryUuid).orElseThrow(() -> new ResourceNotFoundException("Category","categoryUuid",categoryUuid));
+
+		return categoryRepo.findByUuid(categoryUuid)
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryUuid", categoryUuid));
 	}
 
 	@Override
-	public List<Category> getCategoryList(int page) {
-		
-		return categoryRepo.findByIsActiveTrue(PageRequest.of(--page, 5));
+	public Page<Category> getCategoryList(Integer pageNumber,Integer pageSize) {
+
+		return categoryRepo.findByIsActiveTrue(PageRequest.of(--pageNumber, pageSize));
 	}
 
 	@Override
@@ -41,8 +43,8 @@ public class CategoryDaoImpl implements CategoryDao {
 
 	@Override
 	public List<Category> searchCategory(String searchText) {
-//		List<Category> categories=categoryRepo.searchByTitle("%"+searchText+"%",true);
-		return null;
+		return categoryRepo.searchByTitle(searchText, true);
+
 	}
 
 }

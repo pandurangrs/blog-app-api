@@ -1,10 +1,16 @@
 package com.blog.category.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.blog.common.entity.Audit;
+import com.blog.post.entity.Post;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,6 +34,10 @@ public class Category extends Audit{
 	
 	@Column
 	private String description;
+	
+	@OneToMany(mappedBy = "category",cascade =CascadeType.ALL,fetch=FetchType.LAZY)
+	private List<Post> post;
+	
 	
 
 }

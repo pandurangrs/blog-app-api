@@ -1,8 +1,7 @@
 package com.blog.user.dao;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
@@ -43,9 +42,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> getUserList(int page) {
+	public Page<User> getUserList(Integer pageNumber, Integer pageSize) {
 
-		return userRepo.findByIsActiveTrue(PageRequest.of(--page, 5));
+		return userRepo.findByIsActiveTrue(PageRequest.of(--pageNumber, pageSize));
 	}
 
 }

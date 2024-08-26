@@ -1,7 +1,5 @@
 package com.blog.user.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import com.blog.common.constant.UrlMapping;
 import com.blog.common.payload.ApiResponse;
 import com.blog.user.dto.UserDto;
 import com.blog.user.model.UserModel;
+import com.blog.user.model.UserResponse;
 import com.blog.user.service.UserService;
 
 @RestController
@@ -47,9 +46,10 @@ public class UserController {
 	}
 
 	@GetMapping(UrlMapping.USERS)
-	public ResponseEntity<List<UserModel>> getUserList(@RequestParam(name="page",defaultValue = "1",required = false) int page){
-		List<UserModel> userModels=userService.getUserList(page);
-		return new ResponseEntity<>(userModels,HttpStatus.OK);
+	public ResponseEntity<UserResponse> getUserList(@RequestParam(value="pageNumber",defaultValue = "1",required = false) Integer pageNumber,
+			@RequestParam(value="pageSize",defaultValue = "5",required = false) Integer pageSize){
+		UserResponse userResponse=userService.getUserList(pageNumber,pageSize);
+		return new ResponseEntity<>(userResponse,HttpStatus.OK);
 	}
 
 	@DeleteMapping(UrlMapping.USERS_UUID)

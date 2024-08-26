@@ -1,6 +1,6 @@
 package com.blog.user.dao;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 import com.blog.user.entity.User;
 
@@ -11,5 +11,5 @@ public interface UserDao {
 
 	void deleteUser(User user);
 
-	List<User> getUserList(int page);
+	Page<User> getUserList(Integer pageNumber, Integer pageSize);
 }

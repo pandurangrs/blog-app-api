@@ -1,14 +1,17 @@
 package com.blog.category.dao;
 
-import com.blog.category.entity.Category;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+
+import com.blog.category.entity.Category;
 public interface CategoryDao {
 
 	Category saveCategory(Category category);
 	
 	Category getCategoryUsingUuid(String categoryUuid);
 	
-	List<Category> getCategoryList(int page);
+	Page<Category> getCategoryList(Integer pageNumber,Integer pageSize);
 	
 	void delteCategory(Category category);
 
