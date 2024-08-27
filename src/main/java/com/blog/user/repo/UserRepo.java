@@ -13,5 +13,7 @@ public interface UserRepo extends JpaRepository<User, Long>{
 	Optional<User> findByUuid(String userUuid);
 
 	Page<User> findByIsActiveTrue(Pageable pageable);
+	
+	Optional<User> findByEmail(String email);
 
 }
