@@ -7,11 +7,13 @@ public class UrlMapping {
 		super();
 	}
 	
-	public static final String BASE_URL="blog/api/";
+	public static final String BASE_URL="/api/blog";
+	public static final String API_V1_AUTH="api/v1/auth/";
 	
 	//User
 	public static final String USERS="users";
 	public static final String USERS_UUID=USERS+"/{userUuid}";
+	public static final String USER_LOGIN="login";
 	
 	//Category
 	public static final String CATEGORIES="categories";

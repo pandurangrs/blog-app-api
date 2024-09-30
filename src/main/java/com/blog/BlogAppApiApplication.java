@@ -7,11 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class BlogAppApiApplication implements CommandLineRunner{
+public class BlogAppApiApplication implements CommandLineRunner {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(BlogAppApiApplication.class, args);
 	}
@@ -19,7 +18,7 @@ public class BlogAppApiApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		System.err.println(passwordEncoder.encode("om111"));
-		
+
 	}
 
 }
