@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.common.constant.Constants;
 import com.blog.common.constant.UrlMapping;
 import com.blog.common.payload.ApiResponse;
 import com.blog.user.dto.UserDto;
@@ -54,7 +55,7 @@ public class UserController {
 	}
 
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize(Constants.ROLE_ADMIN)
 	@DeleteMapping(UrlMapping.USERS_UUID)
 	public ResponseEntity<ApiResponse> deleteUser(@PathVariable String userUuid) {
 		userService.deleteUser(userUuid);

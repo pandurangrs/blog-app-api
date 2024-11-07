@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.blog.common.constant.AppConstant;
+import com.blog.common.constant.Constants;
 import com.blog.common.constant.UrlMapping;
 import com.blog.common.mapper.Mapper;
 import com.blog.common.payload.ApiResponse;
@@ -59,6 +61,7 @@ public class PostController {
 		return new ResponseEntity<>(postModel, HttpStatus.CREATED);
 	}
 
+	@PreAuthorize(Constants.ROLE_NORMAL_AND_ADMIN)
 	@GetMapping(UrlMapping.POST_UUID)
 	public ResponseEntity<PostModel> getPostUsingUuid(@PathVariable String postUuid) {
 		PostModel postModel = postService.getPostUsingUuid(postUuid);
@@ -71,6 +74,7 @@ public class PostController {
 		return new ResponseEntity<>(postModel, HttpStatus.OK);
 	}
 
+	
 	@DeleteMapping(UrlMapping.POST_UUID)
 	public ResponseEntity<ApiResponse> deletePost(@PathVariable String postUuid) {
 		postService.deletePost(postUuid);
