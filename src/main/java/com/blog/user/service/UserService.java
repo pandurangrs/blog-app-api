@@ -7,6 +7,8 @@ import com.blog.user.model.UserResponse;
 public interface UserService {
 
 	
+	UserModel registerNewUser(UserDto userDto);
+	
 	UserModel saveUser(UserDto userDto);
 	
 	UserModel updateUser(UserDto userDto,String userUuid);

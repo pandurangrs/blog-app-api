@@ -1,12 +1,18 @@
 package com.blog.user.dao;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
+import com.blog.common.constant.AppConstant;
+import com.blog.common.entity.Role;
 import com.blog.common.exception.ResourceNotFoundException;
+import com.blog.common.repository.RoleRepository;
 import com.blog.user.entity.User;
 import com.blog.user.repo.UserRepo;
 
@@ -15,6 +21,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Autowired
 	private UserRepo userRepo;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Override
 	public User saveUser(User user) {
@@ -47,4 +56,16 @@ public class UserDaoImpl implements UserDao {
 		return userRepo.findByIsActiveTrue(PageRequest.of(--pageNumber, pageSize));
 	}
 
+	@Override
+	public Optional<Role> getRoles() {
+		return this.roleRepository.findById(AppConstant.ROLE_NORMAL);
+	}
+
+	@Override
+	public Boolean checkEmailExists(String email) {
+		
+		return userRepo.existsByemail(email);
+	}
+
+	
 }

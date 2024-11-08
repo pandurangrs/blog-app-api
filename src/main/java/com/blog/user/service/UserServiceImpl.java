@@ -5,8 +5,12 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.blog.common.entity.Role;
+import com.blog.common.exception.ApiException;
 import com.blog.common.mapper.Mapper;
 import com.blog.user.dao.UserDao;
 import com.blog.user.dto.UserDto;
@@ -22,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private Mapper mapper;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserModel saveUser(UserDto userDto) {
@@ -84,6 +91,28 @@ public class UserServiceImpl implements UserService {
 		userResponse.setTotalElements(pagePost.getTotalElements());
 		userResponse.setTotalPages(pagePost.getTotalPages());
 		userResponse.setLastPage(pagePost.isLast());
+	}
+
+	@Override
+	public UserModel registerNewUser(UserDto userDto) {
+
+		User user = this.mapper.convert(userDto, User.class);
+
+		// encoded the password
+		Boolean isEmailExists = userDao.checkEmailExists(userDto.getEmail());
+		if (!isEmailExists) {
+			user.setUuid(UUID.randomUUID().toString());
+			user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+
+			// role
+			Role roles = this.userDao.getRoles().get();
+			user.getRoles().add(roles);
+			User newUser = this.userDao.saveUser(user);
+			return this.mapper.convert(newUser, UserModel.class);
+		} else {
+			throw new ApiException("User already Exists", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 }

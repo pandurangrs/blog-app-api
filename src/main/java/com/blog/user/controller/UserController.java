@@ -61,5 +61,12 @@ public class UserController {
 		userService.deleteUser(userUuid);
 		return new ResponseEntity<>(new ApiResponse("User Deleted Successfully",true),HttpStatus.OK);
 	}
+	
+	@PostMapping(UrlMapping.REGISTER_USER)
+	public ResponseEntity<UserModel> registerUser(@RequestBody UserDto userdto){
+		UserModel userModel=this.userService.registerNewUser(userdto);
+		return new ResponseEntity<>(userModel,HttpStatus.CREATED);
+		
+	}
 
 }

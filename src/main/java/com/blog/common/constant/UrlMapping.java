@@ -14,6 +14,7 @@ public class UrlMapping {
 	public static final String USERS="users";
 	public static final String USERS_UUID=USERS+"/{userUuid}";
 	public static final String USER_LOGIN="login";
+	public static final String REGISTER_USER="register";
 	
 	//Category
 	public static final String CATEGORIES="categories";
